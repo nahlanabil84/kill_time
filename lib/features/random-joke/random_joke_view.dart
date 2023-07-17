@@ -62,21 +62,23 @@ class _RandomJokeViewContentState extends State<RandomJokeViewContent> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image(image: AssetImage(Assets.images.laugh.path,),height: 200,),
-            const Gap(32),
+            const Gap(24),
             const Text(
               'Wanna read something funny?',
-            ),
+            style: TextStyle(color: Colors.black54),),
             (widget.viewModel!.getRandomJokeReport?.status ==
                 ActionStatus.running)
                 ? const CircularProgressIndicator()
                 : widget.viewModel!.joke == null
-                ? Container()
+                ? Container(child: const Gap(8),)
                 : Column(
               children: [
                 const Gap(8),
-                Text(widget.viewModel!.joke!.setup!),
+                Text(widget.viewModel!.joke!.setup!,
+                  style: const TextStyle(fontWeight: FontWeight.bold),),
                 const Gap(8),
-                Text(widget.viewModel!.joke!.punchline!),
+                Text(widget.viewModel!.joke!.punchline!,
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),),
                 /** Cat API **/
                 //Text(widget.viewModel!.joke!.id.toString()),
               ],
