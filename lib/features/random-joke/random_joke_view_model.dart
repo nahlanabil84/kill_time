@@ -1,6 +1,7 @@
 import 'package:redux/redux.dart';
 
-import '../../data/model/joke.dart';
+// import '../../data/model/joke.dart';
+import '../../data/model/joke_retro.dart';
 import '../../redux/action_report.dart';
 import '../../redux/app/app_state.dart';
 import '../../redux/random-joke/random_jokes_actions.dart';

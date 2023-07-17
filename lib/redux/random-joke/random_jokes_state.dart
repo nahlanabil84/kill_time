@@ -1,5 +1,6 @@
 
-import '../../data/model/joke.dart';
+// import '../../data/model/joke.dart';
+import '../../data/model/joke_retro.dart';
 import '../action_report.dart';
 
 class RandomJokeState {

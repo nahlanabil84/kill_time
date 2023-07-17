@@ -1,12 +1,19 @@
-import 'package:kill_time/data/remote/random_repository.dart';
+// import 'package:kill_time/data/remote/random_repository.dart';
 import 'package:kill_time/redux/random-joke/random_jokes_actions.dart';
 import 'package:redux/redux.dart';
 
+import '../../data/model/joke_retro.dart';
+import '../../data/network_common.dart';
+import '../../data/remote/random_joke_repositorty_retro.dart';
 import '../action_report.dart';
 import '../app/app_state.dart';
 
 List<Middleware<AppState>> createRandomJokeMiddleware([
-  RandomJokeRepository _repository = const RandomJokeRepository(),]) {
+  // RandomJokeRepository _repository = const RandomJokeRepository(),]) {
+  RandomJokeRepository? _repository,
+]) {
+  _repository = RandomJokeRepository(NetworkCommon().dio);
+
   final getRandomJoke = _createGetRandomJoke(_repository);
 
   return [TypedMiddleware<AppState, GetRandomJokeAction>(getRandomJoke),];
@@ -15,8 +22,9 @@ List<Middleware<AppState>> createRandomJokeMiddleware([
 Middleware<AppState> _createGetRandomJoke(RandomJokeRepository repository) {
   return (Store<AppState> store, dynamic action, NextDispatcher next) {
       running(next, action);
-      repository.getRandomJokes().then((item) {
-        store.state.randomJokeState?.joke = item;
+      store.state.randomJokeState!.joke = null;
+      repository.getRandomJokes().then((joke) {
+        store.state.randomJokeState!.joke = joke;
         completed(next, action);
       }).catchError((error) {
         catchError(next, action, error);
